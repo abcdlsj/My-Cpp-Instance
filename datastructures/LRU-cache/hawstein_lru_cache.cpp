@@ -17,7 +17,7 @@ struct Node {
 template &lt;
 class K, class T &gt;
 class LRUCache {
- public:
+public:
   LRUCache(size_t size) {
     entries_ = new Node &lt;
     K, T &gt;
@@ -39,12 +39,12 @@ class LRUCache {
   }
   void Put(K key, T data) {
     Node<K, T> *node = hashmap_[key];
-    if (node) {  // node exists
+    if (node) { // node exists
       detach(node);
       node->data = data;
       attach(node);
     } else {
-      if (free_entries_.empty()) {  // 可用结点为空，即cache已满
+      if (free_entries_.empty()) { // 可用结点为空，即cache已满
         node = tail_->prev;
         detach(node);
         hashmap_.erase(node->key);
@@ -64,12 +64,12 @@ class LRUCache {
       detach(node);
       attach(node);
       return node->data;
-    } else {  // 如果cache中没有，返回T的默认值。与hashmap行为一致
+    } else { // 如果cache中没有，返回T的默认值。与hashmap行为一致
       return T();
     }
   }
 
- private:
+private:
   // 分离结点
   void detach(Node<K, T> *node) {
     node->prev->next = node->next;
@@ -83,11 +83,11 @@ class LRUCache {
     node->next->prev = node;
   }
 
- private:
+private:
   hash_map<K, Node<K, T> *> hashmap_;
-  vector<Node<K, T> *> free_entries_;  // 存储可用结点的地址
+  vector<Node<K, T> *> free_entries_; // 存储可用结点的地址
   Node<K, T> *head_, *tail_;
-  Node<K, T> *entries_;  // 双向链表中的结点
+  Node<K, T> *entries_; // 双向链表中的结点
 };
 
 int main() {
@@ -98,7 +98,8 @@ int main() {
   LRUCache<int, string> lru_cache(100);
   lru_cache.Put(1, "one");
   cout << lru_cache.Get(1) << endl;
-  if (lru_cache.Get(2) == "") lru_cache.Put(2, "two");
+  if (lru_cache.Get(2) == "")
+    lru_cache.Put(2, "two");
   cout << lru_cache.Get(2);
   return 0;
 }
