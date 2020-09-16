@@ -123,23 +123,23 @@ Organism getBest(std::vector<Organism> population) {
 }
 
 int main() {
-    std::vector <Organism> population = creatPopulation(Target);
-    bool found = false;
-    int generation = 0;
+  std::vector<Organism> population = creatPopulation(Target);
+  bool found = false;
+  int generation = 0;
 
-    while (!found) {
-        generation++;
-        Organism BestOrganism;
-        BestOrganism = getBest(population);
-        printf("eneration: %d | %s | fitness: %6f", generation, BestOrganism.DNA,
-               BestOrganism.Fitness);
-        if (BestOrganism.DNA == Target) {
-            found = true;
-        } else {
-            double maxFitness = BestOrganism.Fitness;
-            std::vector <Organism> pool = creatPool(population, maxFitness);
-            population = naturalSelection(pool, population);
-        }
+  while (!found) {
+    generation++;
+    Organism BestOrganism;
+    BestOrganism = getBest(population);
+    printf("eneration: %d | %s | fitness: %6f", generation,
+           BestOrganism.DNA.c_str(), BestOrganism.Fitness);
+    if (BestOrganism.DNA == Target) {
+      found = true;
+    } else {
+      double maxFitness = BestOrganism.Fitness;
+      std::vector<Organism> pool = creatPool(population, maxFitness);
+      population = naturalSelection(pool, population);
     }
-    printf("find it");
+  }
+  printf("find it");
 }
